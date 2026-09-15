@@ -20,8 +20,38 @@
   "user_daily_token_limit": {
     "description": "单个用户每日用量上限",
     "type": "int",
-    "hint": "单位为 token。仅统计单个群聊内单个用户当前刷新周期的用量；设置为 -1 时不限制单个用户用量。超过上限后静默阻断该用户在该群内发起的 LLM 请求。",
+    "hint": "单位为 token。仅统计单个群聊内单个用户当前刷新周期的用量；设置为 -1 时不限制普通用户用量。超过上限后阻断该用户在该群内发起的 LLM 请求，并向其发送提示。",
     "default": -1
+  },
+  "sponsor_daily_token_limit": {
+    "description": "赞助用户每日用量上限",
+    "type": "int",
+    "hint": "单位为 token。赞助用户（位于“赞助用户列表”）当日用量达到该上限后阻断；设置为 -1 时不限制赞助用户用量。",
+    "default": -1
+  },
+  "sponsor_users": {
+    "description": "赞助用户列表（QQ 号）",
+    "type": "list",
+    "hint": "赞助用户按“赞助用户每日用量上限”限流。原生 WebUI 可逐项填写；也兼容逗号、空格或换行分隔的字符串。可在 WebUI“赞助用户管理”弹窗或使用命令 /sponsor add 维护。",
+    "default": []
+  },
+  "super_admin_users": {
+    "description": "超级管理员列表（QQ 号）",
+    "type": "list",
+    "hint": "超级管理员仅记录用量不做限流，任意用量都不会被阻断。原生 WebUI 可逐项填写；也兼容逗号、空格或换行分隔的字符串。可在 WebUI“赞助用户管理”弹窗或使用命令 /sponsor super 维护。",
+    "default": []
+  },
+  "user_limit_message": {
+    "description": "单用户超限提示",
+    "type": "text",
+    "hint": "普通或赞助用户当日用量达到上限时发送到群的提示。可用变量：{nickname}、{user_id}、{used}、{limit}。",
+    "default": "{nickname}，您当日的对话额度已用尽，达到{limit}，请明日再来。"
+  },
+  "send_user_limit_message": {
+    "description": "发送单用户超限提示",
+    "type": "bool",
+    "hint": "关闭后仍会阻断普通/赞助用户超限请求，但不向其发送提示消息。",
+    "default": true
   },
   "over_limit_policy": {
     "description": "用量超限时的措施",

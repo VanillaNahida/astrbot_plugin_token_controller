@@ -1644,6 +1644,13 @@ class UserStatsMixin:
         if not group_id or group_id not in self._limited_groups():
             return
 
+        get_event_group_name = getattr(self, "_event_group_name", None)
+        if callable(get_event_group_name):
+            try:
+                self._ensure_group_name(group_id, get_event_group_name(event))
+            except Exception:
+                pass
+
         user_id = self._event_user_id(event)
         if not user_id:
             return
@@ -1947,6 +1954,7 @@ class UserStatsMixin:
             groups.append(
                 {
                     "group_id": group_id,
+                    "group_name": str(item.get("group_name") or ""),
                     "remark": str(item.get("remark") or ""),
                     "daily_tokens": int(item.get("used_tokens") or 0),
                     "daily_display": str(item.get("used_display") or "0"),

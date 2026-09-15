@@ -3,7 +3,7 @@ desc: 精细化群聊 Token 流量控制插件：限额、模型阶梯调控、�
 short_desc: 群聊 Token 精细化流量控制插件
 version: 0.6.6
 author: 青尘工作室
-repo: "https://github.com/QingchenWait/astrbot_plugin_token_controller"
+repo: "https://github.com/VanillaNahida/astrbot_plugin_token_controller"
 display_name: Token 流量控制
 support_platforms:
   - aiocqhttp

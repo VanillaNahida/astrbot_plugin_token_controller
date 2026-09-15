@@ -690,6 +690,235 @@
         min-width: 0;
       }
 
+      .usage-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .usage-search {
+        flex: 1 1 auto;
+      }
+
+      .usage-sort {
+        flex: 0 0 auto;
+        width: auto;
+        cursor: pointer;
+      }
+
+      .select-search {
+        width: 100%;
+        min-height: 36px;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        background: #fff;
+        color: var(--text);
+        padding: 8px 12px;
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      .select-search::placeholder {
+        color: var(--muted);
+      }
+
+      .select-list {
+        max-height: 220px;
+        overflow: auto;
+      }
+
+      .group-remark {
+        min-width: 0;
+        max-width: 220px;
+        min-height: 20px;
+        display: inline-flex;
+        align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #1d57bb;
+        background: #eef4ff;
+        border: 1px solid #d4e1fb;
+        border-radius: 999px;
+        padding: 2px 9px;
+        font-size: 12px;
+      }
+
+      .sponsor-overlay {
+        z-index: 40;
+      }
+
+      .sponsor-modal {
+        width: min(760px, 92vw);
+      }
+
+      .sponsor-content {
+        display: grid;
+        gap: 16px;
+      }
+
+      .sponsor-section-title {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+
+      .sponsor-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .sponsor-user-input {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: var(--text);
+        background: var(--field-bg, rgba(0, 0, 0, 0.03));
+        border: 1px solid var(--border, rgba(0, 0, 0, 0.12));
+        border-radius: 8px;
+        box-sizing: border-box;
+      }
+
+      .sponsor-user-input:focus {
+        outline: none;
+        border-color: var(--accent, #1d57bb);
+        box-shadow: 0 0 0 3px rgba(29, 87, 187, 0.15);
+      }
+
+      .sponsor-nickname-preview {
+        margin-top: 8px;
+        min-height: 20px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .sponsor-nickname-preview.is-loading {
+        color: var(--muted);
+      }
+
+      .sponsor-nickname-preview strong {
+        color: var(--text);
+      }
+
+      .sponsor-op {
+        flex: 1 1 auto;
+        min-width: 120px;
+      }
+
+      .sponsor-list-summary {
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.8;
+        word-break: break-all;
+      }
+
+      .sponsor-list-summary b {
+        color: #1d57bb;
+      }
+
+      .managed-overlay {
+        z-index: 45;
+      }
+
+      .managed-modal {
+        width: min(720px, 92vw);
+      }
+
+      .managed-content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .managed-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .managed-search {
+        flex: 1 1 auto;
+      }
+
+      .managed-count {
+        color: var(--muted);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .managed-select-all {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--muted);
+        user-select: none;
+      }
+
+      .managed-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 60vh;
+        overflow-y: auto;
+        padding: 2px;
+      }
+
+      .managed-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border: 1px solid var(--border, rgba(0, 0, 0, 0.12));
+        border-radius: 8px;
+        background: var(--field-bg, rgba(0, 0, 0, 0.02));
+        box-sizing: border-box;
+      }
+
+      .managed-item.is-limited {
+        border-color: var(--accent, #1d57bb);
+        background: var(--field-bg, rgba(29, 87, 187, 0.06));
+      }
+
+      .managed-item input[type="checkbox"] {
+        flex: 0 0 auto;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--accent, #1d57bb);
+      }
+
+      .managed-item-info {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
+      .managed-item-name {
+        color: var(--text);
+        font-size: 14px;
+        line-height: 1.4;
+        word-break: break-all;
+      }
+
+      .managed-item-name b {
+        color: #1d57bb;
+        font-weight: 600;
+      }
+
+      .managed-item-remark {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      .managed-empty {
+        color: var(--muted);
+        font-size: 13px;
+        padding: 24px;
+        text-align: center;
+      }
+
       .status-dot {
         width: 9px;
         height: 9px;
@@ -1171,6 +1400,25 @@
             </div>
             <button id="refreshBtn" class="action-button" type="button">刷新</button>
           </div>
+          <div class="usage-toolbar">
+            <input
+              id="usageSearch"
+              class="field usage-search"
+              type="text"
+              placeholder="搜索群号 / 备注 ..."
+            />
+            <select
+              id="usageSort"
+              class="field usage-sort"
+              title="排序方式"
+              aria-label="排序方式"
+            >
+              <option value="usage_desc">用量从高到低</option>
+              <option value="usage_asc">用量从低到高</option>
+              <option value="group_id_asc">群号升序</option>
+              <option value="group_name_asc">群名升序</option>
+            </select>
+          </div>
           <div id="usageList" class="usage-list"></div>
         </section>
 
@@ -1192,6 +1440,12 @@
             </button>
             <button id="openUserUsageBtn" class="strategy-button" type="button">
               今日用户 token 用量统计
+            </button>
+            <button id="openSponsorBtn" class="strategy-button" type="button">
+              赞助用户管理
+            </button>
+            <button id="openLimitedGroupsBtn" class="strategy-button" type="button">
+              限流的 QQ 群聊列表
             </button>
             <div id="statusLine" class="status-line"></div>
           </div>
@@ -1250,7 +1504,15 @@
                 <span id="groupSelectLabel" class="select-label">选择群聊 ...</span>
                 <span class="select-arrow">▼</span>
               </button>
-              <div id="groupSelectMenu" class="select-menu"></div>
+              <div id="groupSelectMenu" class="select-menu">
+                <input
+                  id="groupSelectSearch"
+                  class="select-search"
+                  type="text"
+                  placeholder="搜索群号 / 备注 ..."
+                />
+                <div id="groupSelectList" class="select-list"></div>
+              </div>
             </div>
             <div id="rangeSelect" class="custom-select">
               <button id="rangeSelectTrigger" class="select-trigger" type="button">
@@ -1290,7 +1552,15 @@
                 <span id="userGroupSelectLabel" class="select-label">选择群聊 ...</span>
                 <span class="select-arrow">▼</span>
               </button>
-              <div id="userGroupSelectMenu" class="select-menu"></div>
+              <div id="userGroupSelectMenu" class="select-menu">
+                <input
+                  id="userGroupSelectSearch"
+                  class="select-search"
+                  type="text"
+                  placeholder="搜索群号 / 备注 ..."
+                />
+                <div id="userGroupSelectList" class="select-list"></div>
+              </div>
             </div>
             <button
               id="refreshUserUsageBtn"
@@ -1311,8 +1581,80 @@
       </section>
     </div>
 
-    <div
-      id="userDialogOverlay"
+    <div id="sponsorOverlay" class="overlay sponsor-overlay" role="dialog" aria-modal="true">
+      <section class="modal sponsor-modal">
+        <div class="modal-topbar">
+          <div class="modal-title">赞助用户管理</div>
+          <div class="modal-actions">
+            <button id="cancelSponsorBtn" class="action-button" type="button">关闭</button>
+          </div>
+        </div>
+        <div class="modal-content sponsor-content">
+          <div class="sponsor-section">
+            <div class="sponsor-section-title">输入 QQ 号码</div>
+            <input
+              id="sponsorUserInput"
+              class="sponsor-user-input"
+              type="text"
+              placeholder="请输入 QQ 号码，例如 123456789"
+              inputmode="numeric"
+              autocomplete="off"
+            />
+            <div id="sponsorNicknamePreview" class="sponsor-nickname-preview"></div>
+          </div>
+          <div class="sponsor-actions">
+            <button id="sponsorAddBtn" class="action-button primary sponsor-op" type="button">
+              添加为赞助
+            </button>
+            <button id="sponsorRemoveBtn" class="action-button sponsor-op" type="button">
+              移除赞助
+            </button>
+            <button id="sponsorSuperBtn" class="action-button sponsor-op" type="button">
+              设为超级管理员
+            </button>
+            <button id="sponsorUnsuperBtn" class="action-button sponsor-op" type="button">
+              移除超级管理员
+            </button>
+          </div>
+          <div id="sponsorToast" class="toast"></div>
+          <div class="sponsor-footer">
+            <div id="sponsorListSummary" class="sponsor-list-summary"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="limitedGroupsOverlay" class="overlay managed-overlay" role="dialog" aria-modal="true">
+      <section class="modal managed-modal">
+        <div class="modal-topbar">
+          <div class="modal-title">限流的 QQ 群聊列表</div>
+          <div class="modal-actions">
+            <label class="managed-select-all">
+              <input id="managedSelectAll" type="checkbox" /> 全选
+            </label>
+            <button id="saveLimitedGroupsBtn" class="action-button primary" type="button">
+              保存
+            </button>
+            <button id="cancelLimitedGroupsBtn" class="action-button" type="button">关闭</button>
+          </div>
+        </div>
+        <div class="modal-content managed-content">
+          <div class="managed-toolbar">
+            <input
+              id="managedSearch"
+              class="field managed-search"
+              type="text"
+              placeholder="搜索群名 / 群号 / 备注 ..."
+            />
+            <span id="managedCount" class="managed-count"></span>
+          </div>
+          <div id="managedList" class="managed-list"></div>
+          <div id="managedToast" class="toast"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="userDialogOverlay"
       class="overlay dialog-overlay"
       role="dialog"
       aria-modal="true"
@@ -1482,9 +1824,13 @@
         currentSettingsInitialPromptCache: false,
         currentSettingsInitialDeepSeekCache: false,
         currentSettingsCacheWarningTouched: false,
+        usageSearchQuery: "",
+        usageSort: "usage_desc",
+        lastUsagePayload: null,
         history: {
           groups: [],
           selectedGroupId: "",
+          searchQuery: "",
           range: "24h",
           bars: [],
           rangeTotalDisplay: "",
@@ -1494,12 +1840,27 @@
         userUsage: {
           groups: [],
           selectedGroupId: "",
+          searchQuery: "",
           users: [],
           window: null,
           syncedAt: "",
           dialogUser: null,
           dialogSortKey: "time",
           dialogSortDirection: "desc",
+        },
+        sponsor: {
+          open: false,
+          currentUser: "",
+          nickname: "",
+          userNames: {},
+          sponsorUsers: [],
+          superAdminUsers: [],
+        },
+        managed: {
+          open: false,
+          groups: [],
+          search: "",
+          selected: new Set(),
         },
       };
 
@@ -1544,6 +1905,23 @@
       const sortUserDialogTimeBtn = document.getElementById("sortUserDialogTimeBtn");
       const sortUserDialogTokensIcon = document.getElementById("sortUserDialogTokensIcon");
       const sortUserDialogTimeIcon = document.getElementById("sortUserDialogTimeIcon");
+      const usageSearch = document.getElementById("usageSearch");
+      const usageSort = document.getElementById("usageSort");
+      const groupSelectList = document.getElementById("groupSelectList");
+      const groupSelectSearch = document.getElementById("groupSelectSearch");
+      const userGroupSelectList = document.getElementById("userGroupSelectList");
+      const userGroupSelectSearch = document.getElementById("userGroupSelectSearch");
+      const sponsorOverlay = document.getElementById("sponsorOverlay");
+      const sponsorUserInput = document.getElementById("sponsorUserInput");
+      const sponsorNicknamePreview = document.getElementById("sponsorNicknamePreview");
+      const sponsorListSummary = document.getElementById("sponsorListSummary");
+      const sponsorToast = document.getElementById("sponsorToast");
+      const limitedGroupsOverlay = document.getElementById("limitedGroupsOverlay");
+      const managedList = document.getElementById("managedList");
+      const managedSearch = document.getElementById("managedSearch");
+      const managedCount = document.getElementById("managedCount");
+      const managedSelectAll = document.getElementById("managedSelectAll");
+      const managedToast = document.getElementById("managedToast");
       const remarkInput = document.getElementById("remarkInput");
       const remarkTarget = document.getElementById("remarkTarget");
       const remarkToast = document.getElementById("remarkToast");
@@ -1866,8 +2244,33 @@
         }
       }
 
+      function sortUsageGroups(list) {
+        const key = state.usageSort || "usage_desc";
+        const collator = new Intl.Collator("zh-Hans-CN", {
+          numeric: true,
+          sensitivity: "base",
+        });
+        list.sort((a, b) => {
+          if (key === "usage_desc") {
+            return (b.used_tokens || 0) - (a.used_tokens || 0);
+          }
+          if (key === "usage_asc") {
+            return (a.used_tokens || 0) - (b.used_tokens || 0);
+          }
+          if (key === "group_id_asc") {
+            return collator.compare(String(a.group_id || ""), String(b.group_id || ""));
+          }
+          return collator.compare(String(a.group_name || ""), String(b.group_name || ""));
+        });
+      }
+
       function renderUsage(payload) {
         const groups = payload.groups || [];
+        const query = String(state.usageSearchQuery || "").trim().toLowerCase();
+        const filteredGroups = query
+          ? groups.filter((group) => groupSearchText(group).includes(query))
+          : groups.slice();
+        sortUsageGroups(filteredGroups);
         windowText.textContent = payload.window
           ? `${formatDate(payload.window.start)} - ${formatDate(payload.window.end)}`
           : "";
@@ -1876,15 +2279,15 @@
           : "当前限流插件未启用";
 
         usageList.innerHTML = "";
-        if (!groups.length) {
+        if (!filteredGroups.length) {
           const empty = document.createElement("div");
           empty.className = "empty";
-          empty.textContent = "尚未配置需要限流的 QQ 群聊";
+          empty.textContent = query ? "没有匹配的 QQ 群聊" : "尚未配置需要限流的 QQ 群聊";
           usageList.append(empty);
           return;
         }
 
-        groups.forEach((group) => {
+        filteredGroups.forEach((group) => {
           const row = document.createElement("div");
           row.className = "usage-row";
 
@@ -1899,14 +2302,14 @@
 
           const groupId = document.createElement("div");
           groupId.className = "group-id";
-          groupId.textContent = group.group_id;
+          groupId.textContent = groupDisplayText(group);
 
           groupText.append(groupId);
 
           if (group.remark) {
             const groupRemark = document.createElement("div");
             groupRemark.className = "group-remark";
-            groupRemark.textContent = `（${group.remark}）`;
+            groupRemark.textContent = group.remark;
             groupText.append(groupRemark);
           }
 
@@ -1914,7 +2317,7 @@
           remarkButton.className = "icon-button";
           remarkButton.type = "button";
           remarkButton.title = "编辑备注";
-          remarkButton.setAttribute("aria-label", `编辑 ${group.group_id} 的备注`);
+          remarkButton.setAttribute("aria-label", `编辑 ${groupDisplayText(group)} 的备注`);
           remarkButton.append(createPencilIcon());
           remarkButton.addEventListener("click", () => {
             openRemark(group.group_id, group.remark || "");
@@ -1926,7 +2329,7 @@
           settingsButton.title = "群聊个性化配置";
           settingsButton.setAttribute(
             "aria-label",
-            `配置 ${group.group_id} 的每日用量上限`,
+            `配置 ${groupDisplayText(group)} 的每日用量上限`,
           );
           settingsButton.append(createGearIcon());
           settingsButton.addEventListener("click", () => {
@@ -1987,15 +2390,279 @@
       }
 
       function closeCustomSelects(except = null) {
-        [groupSelect, rangeSelect, userGroupSelect].forEach((item) => {
-          if (item && item !== except) item.classList.remove("open");
-        });
+        [groupSelect, rangeSelect, userGroupSelect].forEach(
+          (item) => {
+            if (item && item !== except) item.classList.remove("open");
+          },
+        );
       }
 
       function toggleCustomSelect(select) {
         const willOpen = !select.classList.contains("open");
         closeCustomSelects(select);
         select.classList.toggle("open", willOpen);
+      }
+
+      function sponsorDisplay(userId, names) {
+        const nickname = names[userId] || "";
+        return nickname ? `${nickname}（${userId}）` : userId;
+      }
+
+      function renderSponsorListSummary() {
+        const sponsors = state.sponsor.sponsorUsers || [];
+        const supers = state.sponsor.superAdminUsers || [];
+        const userNames = state.sponsor.userNames || {};
+        sponsorListSummary.innerHTML = "";
+        const sponsorText = sponsors.length
+          ? sponsors.map((id) => sponsorDisplay(id, userNames)).join("、")
+          : "（空）";
+        const superText = supers.length
+          ? supers.map((id) => sponsorDisplay(id, userNames)).join("、")
+          : "（空）";
+        const html = `<div>赞助用户（${sponsors.length}）：<b>${escapeHtml(sponsorText)}</b></div>
+          <div>超级管理员（${supers.length}）：<b>${escapeHtml(superText)}</b></div>`;
+        const wrap = document.createElement("div");
+        wrap.innerHTML = html;
+        sponsorListSummary.append(wrap);
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      async function loadSponsors() {
+        const payload = await api.apiGet("sponsors");
+        state.sponsor.sponsorUsers = payload.sponsor_users || [];
+        state.sponsor.superAdminUsers = payload.super_admin_users || [];
+        const userNames = state.sponsor.userNames || {};
+        Object.assign(userNames, payload.sponsor_user_names || {}, payload.super_admin_user_names || {});
+        state.sponsor.userNames = userNames;
+        renderSponsorListSummary();
+      }
+
+      let sponsorNicknameTimer = null;
+      async function lookupSponsorUserNickname(userId) {
+        if (!userId) {
+          state.sponsor.nickname = "";
+          sponsorNicknamePreview.className = "sponsor-nickname-preview";
+          sponsorNicknamePreview.textContent = "";
+          return;
+        }
+        if (state.sponsor.userNames[userId]) {
+          state.sponsor.nickname = state.sponsor.userNames[userId];
+          sponsorNicknamePreview.className = "sponsor-nickname-preview";
+          sponsorNicknamePreview.innerHTML = `昵称：<strong>${escapeHtml(state.sponsor.nickname)}</strong>`;
+          return;
+        }
+        sponsorNicknamePreview.className = "sponsor-nickname-preview is-loading";
+        sponsorNicknamePreview.textContent = "正在获取昵称 ...";
+        try {
+          const payload = await api.apiGet("user-name", { user_id: userId });
+          const nickname = payload.nickname || "";
+          state.sponsor.nickname = nickname;
+          if (nickname) state.sponsor.userNames[userId] = nickname;
+          sponsorNicknamePreview.className = "sponsor-nickname-preview";
+          sponsorNicknamePreview.innerHTML = nickname
+            ? `昵称：<strong>${escapeHtml(nickname)}</strong>`
+            : "未获取到该用户的昵称";
+          renderSponsorListSummary();
+        } catch (error) {
+          sponsorNicknamePreview.className = "sponsor-nickname-preview";
+          sponsorNicknamePreview.textContent = "获取昵称失败";
+        }
+      }
+
+      function onSponsorUserInput() {
+        const raw = String(sponsorUserInput.value || "").replace(/\D/g, "");
+        sponsorUserInput.value = raw;
+        state.sponsor.currentUser = raw;
+        state.sponsor.nickname = "";
+        if (sponsorNicknameTimer) clearTimeout(sponsorNicknameTimer);
+        sponsorNicknameTimer = setTimeout(() => {
+          lookupSponsorUserNickname(raw);
+        }, 300);
+      }
+
+      async function openSponsor() {
+        setSponsorToast("");
+        sponsorUserInput.value = "";
+        state.sponsor.currentUser = "";
+        state.sponsor.nickname = "";
+        sponsorNicknamePreview.className = "sponsor-nickname-preview";
+        sponsorNicknamePreview.textContent = "";
+        try {
+          await loadSponsors();
+        } catch (error) {
+          setSponsorToast(error.message || String(error), true);
+        }
+        sponsorOverlay.classList.add("open");
+        state.sponsor.open = true;
+      }
+
+      function closeSponsor() {
+        sponsorOverlay.classList.remove("open");
+        state.sponsor.open = false;
+        state.sponsor.currentUser = "";
+        state.sponsor.nickname = "";
+        sponsorUserInput.value = "";
+        sponsorNicknamePreview.className = "sponsor-nickname-preview";
+        sponsorNicknamePreview.textContent = "";
+      }
+
+      function setSponsorToast(message, isError = false) {
+        sponsorToast.textContent = message || "";
+        sponsorToast.classList.toggle("error", Boolean(isError));
+      }
+
+      async function sponsorAction(action, target) {
+        const userId = state.sponsor.currentUser;
+        if (!userId) {
+          setSponsorToast("请先输入 QQ 号码。", true);
+          return;
+        }
+        try {
+          await api.apiPost("sponsors", { action, target, user_id: userId });
+          await loadSponsors();
+          setSponsorToast("操作成功。");
+          await loadUsage();
+        } catch (error) {
+          setSponsorToast(error.message || String(error), true);
+        }
+      }
+
+      function setManagedToast(message, isError = false) {
+        managedToast.textContent = message || "";
+        managedToast.classList.toggle("error", Boolean(isError));
+      }
+
+      function managedSearchText(group) {
+        return (
+          [group.group_name, group.group_id, group.remark]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase()
+        );
+      }
+
+      async function loadManagedGroups() {
+        const payload = await api.apiGet("managed-groups");
+        state.managed.groups = payload.groups || [];
+        state.managed.selected = new Set(payload.limited_groups || []);
+        renderManagedList();
+      }
+
+      function renderManagedList() {
+        const query = String(state.managed.search || "").trim().toLowerCase();
+        const groups = query
+          ? state.managed.groups.filter((group) => managedSearchText(group).includes(query))
+          : state.managed.groups;
+
+        managedCount.textContent = `已选 ${state.managed.selected.size} / ${state.managed.groups.length}`;
+        managedList.innerHTML = "";
+        if (!groups.length) {
+          const empty = document.createElement("div");
+          empty.className = "managed-empty";
+          empty.textContent = query ? "没有匹配的 QQ 群聊" : "未获取到任何 QQ 群聊";
+          managedList.append(empty);
+          managedSelectAll.disabled = true;
+          managedSelectAll.checked = false;
+          return;
+        }
+        managedSelectAll.disabled = false;
+        const allVisibleSelected = groups.every((group) =>
+          state.managed.selected.has(group.group_id),
+        );
+        managedSelectAll.checked = allVisibleSelected;
+
+        groups.forEach((group) => {
+          const item = document.createElement("label");
+          item.className = "managed-item";
+          if (state.managed.selected.has(group.group_id)) {
+            item.classList.add("is-limited");
+          }
+          item.setAttribute("data-group-id", group.group_id);
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = state.managed.selected.has(group.group_id);
+
+          const info = document.createElement("div");
+          info.className = "managed-item-info";
+
+          const name = document.createElement("div");
+          name.className = "managed-item-name";
+          const escapedName = escapeHtml(group.group_name || "");
+          name.innerHTML = escapedName
+            ? `${escapedName}<b>（${escapeHtml(group.group_id)}）</b>`
+            : escapeHtml(group.group_id);
+          info.append(name);
+
+          if (group.remark) {
+            const remark = document.createElement("div");
+            remark.className = "managed-item-remark";
+            remark.textContent = `备注：${group.remark}`;
+            info.append(remark);
+          }
+
+          checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+              state.managed.selected.add(group.group_id);
+              item.classList.add("is-limited");
+            } else {
+              state.managed.selected.delete(group.group_id);
+              item.classList.remove("is-limited");
+            }
+            managedCount.textContent = `已选 ${state.managed.selected.size} / ${state.managed.groups.length}`;
+            const visible = state.managed.groups.filter((g) => {
+              const search = String(state.managed.search || "").trim().toLowerCase();
+              return search ? managedSearchText(g).includes(search) : true;
+            });
+            managedSelectAll.checked =
+              visible.length > 0 &&
+              visible.every((g) => state.managed.selected.has(g.group_id));
+          });
+
+          item.append(checkbox, info);
+          managedList.append(item);
+        });
+      }
+
+      async function openLimitedGroups() {
+        setManagedToast("");
+        state.managed.search = "";
+        managedSearch.value = "";
+        state.managed.selected = new Set();
+        state.managed.groups = [];
+        limitedGroupsOverlay.classList.add("open");
+        state.managed.open = true;
+        try {
+          await loadManagedGroups();
+        } catch (error) {
+          renderManagedList();
+          setManagedToast(error.message || String(error), true);
+        }
+      }
+
+      function closeLimitedGroups() {
+        limitedGroupsOverlay.classList.remove("open");
+        state.managed.open = false;
+      }
+
+      async function saveLimitedGroups() {
+        try {
+          const payload = await api.apiPost("limited-groups", {
+            groups: Array.from(state.managed.selected),
+          });
+          state.managed.selected = new Set(payload.limited_groups || []);
+          setManagedToast("已保存限流群聊配置。");
+          await loadUsage();
+        } catch (error) {
+          setManagedToast(error.message || String(error), true);
+        }
       }
 
       function statusDotClass(status) {
@@ -2013,6 +2680,21 @@
       function selectedUserUsageGroup() {
         return state.userUsage.groups.find(
           (group) => group.group_id === state.userUsage.selectedGroupId,
+        );
+      }
+
+      function groupDisplayText(group) {
+        const id = String((group && group.group_id) || "");
+        const name = String((group && group.group_name) || "").trim();
+        return name ? `${name}（${id}）` : id;
+      }
+
+      function groupSearchText(group) {
+        return (
+          [group.group_id, group.group_name, group.remark]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase()
         );
       }
 
@@ -2037,11 +2719,16 @@
       function renderHistoryControls() {
         const selectedGroup = selectedHistoryGroup();
         groupSelectLabel.textContent = selectedGroup
-          ? `${selectedGroup.group_id}${selectedGroup.remark ? `（${selectedGroup.remark}）` : ""}`
+          ? groupDisplayText(selectedGroup)
           : "选择群聊 ...";
         rangeSelectLabel.textContent = historyRangeLabel(state.history.range);
 
-        groupSelectMenu.innerHTML = "";
+        const query = String(state.history.searchQuery || "").trim().toLowerCase();
+        const filtered = query
+          ? state.history.groups.filter((group) => groupSearchText(group).includes(query))
+          : state.history.groups;
+
+        groupSelectList.innerHTML = "";
         const allOption = document.createElement("button");
         allOption.className = `select-option${state.history.selectedGroupId ? "" : " selected"}`;
         allOption.type = "button";
@@ -2051,9 +2738,16 @@
           closeCustomSelects();
           await reloadHistory();
         });
-        groupSelectMenu.append(allOption);
+        groupSelectList.append(allOption);
 
-        state.history.groups.forEach((group) => {
+        if (!filtered.length) {
+          const empty = document.createElement("div");
+          empty.className = "select-option";
+          empty.textContent = "无匹配群聊";
+          groupSelectList.append(empty);
+        }
+
+        filtered.forEach((group) => {
           const option = document.createElement("button");
           option.className = `select-option${
             group.group_id === state.history.selectedGroupId ? " selected" : ""
@@ -2065,7 +2759,17 @@
 
           const id = document.createElement("span");
           id.className = "select-option-id";
-          id.textContent = `${group.group_id}${group.remark ? `（${group.remark}）` : ""}`;
+          id.textContent = groupDisplayText(group);
+
+          const labelWrap = document.createElement("span");
+          labelWrap.className = "select-option-pill";
+          if (group.remark) {
+            const tag = document.createElement("span");
+            tag.className = "group-remark select-option-tag";
+            tag.textContent = group.remark;
+            labelWrap.append(tag);
+          }
+          id.append(labelWrap);
 
           const usageWrap = document.createElement("span");
           usageWrap.className = "select-option-usage-wrap";
@@ -2085,7 +2789,7 @@
             closeCustomSelects();
             await reloadHistory();
           });
-          groupSelectMenu.append(option);
+          groupSelectList.append(option);
         });
 
         rangeSelectMenu.innerHTML = "";
@@ -2108,10 +2812,15 @@
       function renderUserUsageControls() {
         const selectedGroup = selectedUserUsageGroup();
         userGroupSelectLabel.textContent = selectedGroup
-          ? `${selectedGroup.group_id}${selectedGroup.remark ? `（${selectedGroup.remark}）` : ""}`
+          ? groupDisplayText(selectedGroup)
           : "选择群聊 ...";
 
-        userGroupSelectMenu.innerHTML = "";
+        const query = String(state.userUsage.searchQuery || "").trim().toLowerCase();
+        const filtered = query
+          ? state.userUsage.groups.filter((group) => groupSearchText(group).includes(query))
+          : state.userUsage.groups;
+
+        userGroupSelectList.innerHTML = "";
         const placeholder = document.createElement("button");
         placeholder.className = `select-option${
           state.userUsage.selectedGroupId ? "" : " selected"
@@ -2123,9 +2832,16 @@
           closeCustomSelects();
           await reloadUserUsage();
         });
-        userGroupSelectMenu.append(placeholder);
+        userGroupSelectList.append(placeholder);
 
-        state.userUsage.groups.forEach((group) => {
+        if (!filtered.length) {
+          const empty = document.createElement("div");
+          empty.className = "select-option";
+          empty.textContent = "无匹配群聊";
+          userGroupSelectList.append(empty);
+        }
+
+        filtered.forEach((group) => {
           const option = document.createElement("button");
           option.className = `select-option${
             group.group_id === state.userUsage.selectedGroupId ? " selected" : ""
@@ -2137,7 +2853,17 @@
 
           const id = document.createElement("span");
           id.className = "select-option-id";
-          id.textContent = `${group.group_id}${group.remark ? `（${group.remark}）` : ""}`;
+          id.textContent = groupDisplayText(group);
+
+          const labelWrap = document.createElement("span");
+          labelWrap.className = "select-option-pill";
+          if (group.remark) {
+            const tag = document.createElement("span");
+            tag.className = "group-remark select-option-tag";
+            tag.textContent = group.remark;
+            labelWrap.append(tag);
+          }
+          id.append(labelWrap);
 
           const usageWrap = document.createElement("span");
           usageWrap.className = "select-option-usage-wrap";
@@ -2157,7 +2883,7 @@
             closeCustomSelects();
             await reloadUserUsage();
           });
-          userGroupSelectMenu.append(option);
+          userGroupSelectList.append(option);
         });
       }
 
@@ -2620,6 +3346,7 @@
 
       async function loadUsage() {
         const payload = await api.apiGet("usage");
+        state.lastUsagePayload = payload;
         renderUsage(payload);
       }
 
@@ -2729,7 +3456,7 @@
 
       async function openGroupSettings(group) {
         state.currentSettingsGroupId = String(group.group_id || "");
-        groupSettingsTarget.textContent = `QQ 群号：${state.currentSettingsGroupId}`;
+        groupSettingsTarget.textContent = `QQ 群号：${groupDisplayText(group)}`;
         groupLimitInput.value = group.primary_limit_tokens ?? group.global_limit_tokens ?? "";
         state.currentSettingsInitialLimit = Number.parseInt(
           groupLimitInput.value || "0",
@@ -2972,6 +3699,62 @@
       userGroupSelectMenu.addEventListener("click", (event) => {
         event.stopPropagation();
       });
+      document.getElementById("openSponsorBtn").addEventListener("click", openSponsor);
+      document.getElementById("cancelSponsorBtn").addEventListener("click", closeSponsor);
+      sponsorUserInput.addEventListener("input", onSponsorUserInput);
+      document
+        .getElementById("openLimitedGroupsBtn")
+        .addEventListener("click", openLimitedGroups);
+      document
+        .getElementById("cancelLimitedGroupsBtn")
+        .addEventListener("click", closeLimitedGroups);
+      document
+        .getElementById("saveLimitedGroupsBtn")
+        .addEventListener("click", saveLimitedGroups);
+      managedSearch.addEventListener("input", () => {
+        state.managed.search = managedSearch.value;
+        renderManagedList();
+      });
+      managedSelectAll.addEventListener("change", () => {
+        const query = String(state.managed.search || "").trim().toLowerCase();
+        const visible = state.managed.groups.filter((group) =>
+          query ? managedSearchText(group).includes(query) : true,
+        );
+        if (managedSelectAll.checked) {
+          visible.forEach((group) => state.managed.selected.add(group.group_id));
+        } else {
+          visible.forEach((group) => state.managed.selected.delete(group.group_id));
+        }
+        renderManagedList();
+      });
+      groupSelectSearch.addEventListener("input", () => {
+        state.history.searchQuery = groupSelectSearch.value;
+        renderHistoryControls();
+      });
+      userGroupSelectSearch.addEventListener("input", () => {
+        state.userUsage.searchQuery = userGroupSelectSearch.value;
+        renderUserUsageControls();
+      });
+      usageSearch.addEventListener("input", () => {
+        state.usageSearchQuery = usageSearch.value;
+        if (state.lastUsagePayload) renderUsage(state.lastUsagePayload);
+      });
+      usageSort.addEventListener("change", () => {
+        state.usageSort = usageSort.value;
+        if (state.lastUsagePayload) renderUsage(state.lastUsagePayload);
+      });
+      document
+        .getElementById("sponsorAddBtn")
+        .addEventListener("click", () => sponsorAction("add", "sponsor_users"));
+      document
+        .getElementById("sponsorRemoveBtn")
+        .addEventListener("click", () => sponsorAction("remove", "sponsor_users"));
+      document
+        .getElementById("sponsorSuperBtn")
+        .addEventListener("click", () => sponsorAction("add", "super_admin_users"));
+      document
+        .getElementById("sponsorUnsuperBtn")
+        .addEventListener("click", () => sponsorAction("remove", "super_admin_users"));
       document.addEventListener("click", () => {
         closeCustomSelects();
         hideHistoryTooltip();
@@ -2998,6 +3781,12 @@
       groupSettingsOverlay.addEventListener("click", (event) => {
         if (event.target === groupSettingsOverlay) closeGroupSettings();
       });
+      sponsorOverlay.addEventListener("click", (event) => {
+        if (event.target === sponsorOverlay) closeSponsor();
+      });
+      limitedGroupsOverlay.addEventListener("click", (event) => {
+        if (event.target === limitedGroupsOverlay) closeLimitedGroups();
+      });
       remarkInput.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
           event.preventDefault();
@@ -3012,6 +3801,12 @@
           saveGroupSettings();
         } else if (event.key === "Escape") {
           closeGroupSettings();
+        }
+      });
+      managedSearch.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeLimitedGroups();
         }
       });
 

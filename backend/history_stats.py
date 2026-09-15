@@ -440,6 +440,7 @@ class HistoryStatsMixin:
             groups.append(
                 {
                     "group_id": group_id,
+                    "group_name": str(item.get("group_name") or ""),
                     "remark": str(item.get("remark") or ""),
                     "daily_tokens": int(item.get("used_tokens") or 0),
                     "daily_display": str(item.get("used_display") or "0"),
@@ -454,6 +455,7 @@ class HistoryStatsMixin:
         top_limit: int,
     ) -> list[dict[str, Any]]:
         remarks = self._load_group_remarks()
+        group_names = self._load_group_names()
         groups = stats.get("groups", {})
         rows = []
         if isinstance(groups, dict):
@@ -469,9 +471,13 @@ class HistoryStatsMixin:
         return [
             self._history_bar(
                 label=(
-                    f"{group_id}（{remarks[group_id]}）"
-                    if remarks.get(group_id)
-                    else group_id
+                    f"{group_names[group_id]}（{group_id}）"
+                    if group_names.get(group_id)
+                    else (
+                        f"{group_id}（{remarks[group_id]}）"
+                        if remarks.get(group_id)
+                        else group_id
+                    )
                 ),
                 tokens=tokens,
                 group_id=group_id,

@@ -19,16 +19,23 @@ except ImportError:  # pragma: no cover - compatible with direct module loading.
 
 
 class UserLimitMixin:
-    """Per-user daily token limit checks for QQ group LLM requests."""
+    """Per-user daily token limit checks for QQ group LLM requests.
+
+    Tiers are resolved via ``SponsorMixin``:
+    - super admin: no limit (usage only recorded, never blocked);
+    - sponsor: uses ``sponsor_daily_token_limit`` (``-1`` = unlimited);
+    - normal: uses ``user_daily_token_limit`` (``-1`` = unlimited).
+    """
 
     def _user_daily_limit(self) -> int:
         try:
-            return int(self._config_value("user_daily_token_limit"))
+            return max(-1, int(self._config_value("user_daily_token_limit")))
         except (TypeError, ValueError):
             return -1
 
     def _user_daily_limit_enabled(self) -> bool:
-        return self._user_daily_limit() >= 0
+        # User-scope limiting is active when either user or sponsor tier has a limit.
+        return self._user_daily_limit() >= 0 or self._sponsor_daily_limit() >= 0
 
     async def _user_usage_total_for_event(self, event: Any) -> dict[str, Any] | None:
         if not self._user_daily_limit_enabled():
@@ -51,6 +58,11 @@ class UserLimitMixin:
         if not user_id:
             return None
 
+        limit, tier = self._user_effective_limit(user_id)
+        if limit is None:
+            # Super admin, or this tier is set to unlimited (-1).
+            return None
+
         stats = await self._maybe_sync_user_stats(force=True, group_id=group_id)
         window = _build_user_usage_window(self._config_value("refresh_time"))
         group_data = stats.get("groups", {}).get(group_id, {})
@@ -66,8 +78,10 @@ class UserLimitMixin:
         return {
             "group_id": group_id,
             "user_id": user_id,
+            "tier": tier,
+            "nickname": self._event_user_name(event) or user_id,
             "used": max(0, int(totals.get(user_id, 0) or 0)),
-            "limit": self._user_daily_limit(),
+            "limit": limit,
             "window": window,
         }
 
@@ -77,7 +91,7 @@ class UserLimitMixin:
             return None
         limit = int(limit_state["limit"])
         used = int(limit_state["used"])
-        if limit < 0 or used < limit:
+        if used < limit:
             return None
         return limit_state
 
@@ -87,12 +101,14 @@ class UserLimitMixin:
             return False
         event.stop_event()
         logger.info(
-            "Silently blocked user LLM request by per-user token limit: "
-            "stage=%s group=%s user=%s used=%s limit=%s",
+            "Blocked user LLM request by per-user token limit: "
+            "stage=%s group=%s user=%s tier=%s used=%s limit=%s",
             stage,
             limit_state["group_id"],
             limit_state["user_id"],
+            limit_state.get("tier", "normal"),
             limit_state["used"],
             limit_state["limit"],
         )
+        await self._send_user_limit_message(event, limit_state)
         return True
