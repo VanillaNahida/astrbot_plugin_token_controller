@@ -254,12 +254,24 @@ class SponsorMixin:
 
     # ---- user quota query --------------------------------------------------
 
-    async def _user_quota_query(self, event: AstrMessageEvent):
-        user_id = _sanitize_user_id(self._event_user_id(event))
+    async def _user_quota_query(self, event: AstrMessageEvent, requested: str = ""):
+        requested = str(requested or "").strip()
+        requested_id = _sanitize_user_id(requested)
+        if not requested_id:
+            # 未传参时，若消息里携带艾特，则查询被艾特用户的额度。
+            at_ids = self._event_at_target_ids(event)
+            if at_ids:
+                requested_id = _sanitize_user_id(at_ids[0])
+        if requested_id:
+            user_id = requested_id
+            nickname = self._user_name_map([user_id]).get(user_id) or user_id
+        else:
+            # 未传参且无艾特：查询发送者自身的额度。
+            user_id = _sanitize_user_id(self._event_user_id(event))
+            nickname = self._event_user_name(event) or user_id
         if not user_id:
-            yield event.plain_result("无法识别你的 QQ 账号，请稍后重试。")
+            yield event.plain_result("无法识别目标 QQ 账号，请稍后重试。")
             return
-        nickname = self._event_user_name(event) or user_id
         tier = self._user_tier(user_id)
         tier_label = {
             TIER_SUPER_ADMIN: "超级管理员",
@@ -276,7 +288,11 @@ class SponsorMixin:
             yield event.plain_result("\n".join(lines))
             return
         lines.append(f"总额度：{_format_tokens(limit)}")
-        limit_state = await self._user_usage_total_for_event(event)
+        limit_state = await self._user_usage_total_for_event(
+            event,
+            user_id=user_id,
+            nickname=nickname,
+        )
         if not limit_state:
             lines.append("当前未启用本群用户额度统计。")
             yield event.plain_result("\n".join(lines))

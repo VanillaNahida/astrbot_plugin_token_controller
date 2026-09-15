@@ -37,7 +37,12 @@ class UserLimitMixin:
         # User-scope limiting is active when either user or sponsor tier has a limit.
         return self._user_daily_limit() >= 0 or self._sponsor_daily_limit() >= 0
 
-    async def _user_usage_total_for_event(self, event: Any) -> dict[str, Any] | None:
+    async def _user_usage_total_for_event(
+        self,
+        event: Any,
+        user_id: str | None = None,
+        nickname: str | None = None,
+    ) -> dict[str, Any] | None:
         if not self._user_daily_limit_enabled():
             return None
         if not self._is_enabled():
@@ -54,7 +59,10 @@ class UserLimitMixin:
         if not group_id or group_id not in self._limited_groups():
             return None
 
-        user_id = _sanitize_user_id(self._event_user_id(event))
+        if user_id is None:
+            user_id = _sanitize_user_id(self._event_user_id(event))
+        else:
+            user_id = _sanitize_user_id(user_id)
         if not user_id:
             return None
 
@@ -79,7 +87,7 @@ class UserLimitMixin:
             "group_id": group_id,
             "user_id": user_id,
             "tier": tier,
-            "nickname": self._event_user_name(event) or user_id,
+            "nickname": nickname or self._event_user_name(event) or user_id,
             "used": max(0, int(totals.get(user_id, 0) or 0)),
             "limit": limit,
             "window": window,

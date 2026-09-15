@@ -198,6 +198,7 @@ class Main(
             event, "add", SPONSOR_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("添加")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -206,6 +207,7 @@ class Main(
             event, "add", SPONSOR_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("remove")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -215,6 +217,7 @@ class Main(
             event, "remove", SPONSOR_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("移除")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -223,6 +226,7 @@ class Main(
             event, "remove", SPONSOR_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("super")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -232,6 +236,7 @@ class Main(
             event, "add", SUPER_ADMIN_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("超级")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -240,6 +245,7 @@ class Main(
             event, "add", SUPER_ADMIN_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("unsuper")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -249,6 +255,7 @@ class Main(
             event, "remove", SUPER_ADMIN_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("普通")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -257,6 +264,7 @@ class Main(
             event, "remove", SUPER_ADMIN_USERS_KEY, user_id
         ):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("list")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -285,12 +293,14 @@ class Main(
             super_line if super_admins else "（空）",
         ]
         yield event.plain_result("\n".join(lines))
+        event.stop_event()
 
     @sponsor_group.command("列表")
     @filter.permission_type(filter.PermissionType.ADMIN)
     async def sponsor_list_zh(self, event: AstrMessageEvent) -> None:
         async for result in self.sponsor_list(event):
             yield result
+        event.stop_event()
 
     @sponsor_group.command("limit")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -306,20 +316,24 @@ class Main(
             yield event.plain_result(
                 f"赞助用户每日用量上限：{_format_tokens(limit) if limit >= 0 else '不限'}（-1 表示不限）"
             )
+            event.stop_event()
             return
         try:
             new_limit = int(value)
         except (TypeError, ValueError):
             yield event.plain_result("用法：/sponsor limit <每日上限>，-1 表示不限。")
+            event.stop_event()
             return
         if new_limit < -1:
             yield event.plain_result("每日上限不能小于 -1。")
+            event.stop_event()
             return
         self.config[SPONSOR_DAILY_TOKEN_LIMIT_KEY] = new_limit
         self._save_config_preserving_group_settings()
         yield event.plain_result(
             f"赞助用户每日用量上限已更新为：{_format_tokens(new_limit) if new_limit >= 0 else '不限'}。"
         )
+        event.stop_event()
 
     @sponsor_group.command("限额")
     @filter.permission_type(filter.PermissionType.ADMIN)
@@ -330,17 +344,20 @@ class Main(
     ) -> None:
         async for result in self.sponsor_limit(event, value):
             yield result
+        event.stop_event()
 
     @filter.command("quota")
-    async def quota(self, event: AstrMessageEvent) -> None:
-        """查询自身当日的总额度/剩余额度与身份"""
-        async for result in self._user_quota_query(event):
+    async def quota(self, event: AstrMessageEvent, user_id: str = "") -> None:
+        """查询当日额度；不传参查自己，携带 QQ 号或 @成员时查询对方"""
+        async for result in self._user_quota_query(event, user_id):
             yield result
+        event.stop_event()
 
     @filter.command("额度")
-    async def quota_zh(self, event: AstrMessageEvent) -> None:
-        async for result in self._user_quota_query(event):
+    async def quota_zh(self, event: AstrMessageEvent, user_id: str = "") -> None:
+        async for result in self._user_quota_query(event, user_id):
             yield result
+        event.stop_event()
 
     async def initialize(self) -> None:
         self._start_history_background_sync()
